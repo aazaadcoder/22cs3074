@@ -75,7 +75,36 @@ const shortenUrl = (req, res) => {
         });
     }
 }
+const getUrlStats = (req, res) => {
+    try {
+        const { shortcode } = req.params;
+
+        // Check if shortcode exists
+        if (!statsDatabase.has(shortcode)) {
+            return res.status(404).json({
+                error: 'Shortcode not found'
+            });
+        }
+
+        const stats = statsDatabase.get(shortcode);
+
+        // Return statistics
+        res.json({
+            shortcode: shortcode,
+            originalUrl: stats.originalUrl,
+            createdAt: stats.createdAt,
+            expiryDate: stats.expiryDate,
+            totalClicks: stats.totalClicks,
+            clickData: stats.clickData
+        });
+
+    } catch (error) {
+        res.status(500).json({
+            error: 'Internal server error'
+        });
+    }
+};
 
 
 
-export {shortenUrl};
+export {shortenUrl,getUrlStats};

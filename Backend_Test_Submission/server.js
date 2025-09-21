@@ -1,5 +1,5 @@
 import express from 'express'
-import { shortenUrl } from './controllers/urlControllers.js';
+import { getUrlStats, shortenUrl } from './controllers/urlControllers.js';
 
 const app = express();
 
@@ -14,7 +14,7 @@ const statsDatabase = new Map();
 app.post('/shorturls', shortenUrl);
 
 // Retrieve Short URL Statistics endpoint
-app.get('/shorturls/:shortcode', );
+app.get('/shorturls/:shortcode',getUrlStats );
 
 // Redirect endpoint (bonus feature to make the short URLs functional)
 app.get('/:shortcode', )
